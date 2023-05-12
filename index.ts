@@ -1,6 +1,7 @@
 import fastify from "fastify";
 import todosRoute from "./api/todos";
 import prismaPlugin from "./plugins/prisma";
+const cors = require("@fastify/cors")
 
 /**
  * @type {import('fastify').FastifyInstance} Instance of Fastify
@@ -9,6 +10,7 @@ const app = fastify({
   logger: true,
 });
 
+app.register(cors, {})
 app.register(todosRoute, { prefix: "/todo" });
 app.register(prismaPlugin);
 
