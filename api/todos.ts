@@ -21,7 +21,13 @@ async function routes(fastify: FastifyInstance, options: Object) {
   //GET all
   fastify.get("/", async (_, res) => {
     try {
-      const todoList: ToDo[] = await prisma.toDo.findMany();
+      const todoList: ToDo[] = await prisma.toDo.findMany({
+        orderBy: [
+          {
+            id: "asc",
+          },
+        ],
+      });
       res.code(200).send({ todoList });
     } catch (error: any) {
       res.code(500).send({ error: error.message });
